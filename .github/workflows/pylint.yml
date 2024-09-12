@@ -16,17 +16,13 @@ jobs:
 
     - name: Set up permissions
       run: |
-        chmod +x jh.sh
         chmod +x CFIPlus.sh
         chmod +x speed_AIO.sh
 
-    - name: Install modules
+    - name: Update and install shell commands
       run: |
-        # 根据实际情况安装所需模块
-        pip install required_module
-
-    - name: Run jh.sh
-      run:./jh.sh
+        sudo apt update
+        sudo apt install -y bash-completion # 示例安装一个常见的 shell 命令工具，你可以根据需要添加更多命令安装步骤
 
     - name: Run CFIPlus.sh
       run:./CFIPlus.sh
