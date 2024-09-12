@@ -17,13 +17,8 @@ jobs:
     - name: Set up permissions
       run: |
         chmod +x CFIPlus.sh
-
-    - name: Install Git and configure user
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y git
-        git config --global user.email "your_email@example.com"
-        git config --global user.name "Your Name"
+        # 赋予执行脚本所在目录及其子目录可写权限，以便创建和删除文件
+        sudo chmod -R 777 $(pwd)
 
     - name: Run CFIPlus.sh
       run: |
@@ -31,14 +26,4 @@ jobs:
           ./CFIPlus.sh "$1"
         else
           ./CFIPlus.sh
-        fi
-
-    - name: Commit changes if any
-      run: |
-        if git status --porcelain | grep -qE '^[MADRCU].'; then
-          git add.
-          git commit -m "Auto configuration changes"
-          git push origin main
-        else
-          echo "No changes to commit."
         fi
