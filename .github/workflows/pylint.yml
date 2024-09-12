@@ -18,10 +18,27 @@ jobs:
       run: |
         chmod +x CFIPlus.sh
 
+    - name: Install Git and configure user
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git
+        git config --global user.email "your_email@example.com"
+        git config --global user.name "Your Name"
+
     - name: Run CFIPlus.sh
       run: |
         if [ -n "$1" ]; then
-           ./CFIPlus.sh "$1"
+          ./CFIPlus.sh "$1"
         else
-           ./CFIPlus.sh
+          ./CFIPlus.sh
+        fi
+
+    - name: Commit changes if any
+      run: |
+        if git status --porcelain | grep -qE '^[MADRCU].'; then
+          git add.
+          git commit -m "Auto configuration changes"
+          git push origin main
+        else
+          echo "No changes to commit."
         fi
