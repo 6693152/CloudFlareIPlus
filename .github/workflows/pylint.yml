@@ -1,4 +1,4 @@
-name: Run Scripts
+name: Auto Configure CloudFlareIPlus
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  run-scripts:
+  configure:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,15 +17,11 @@ jobs:
     - name: Set up permissions
       run: |
         chmod +x CFIPlus.sh
-        chmod +x speed_AIO.sh
-
-    - name: Update and install shell commands
-      run: |
-        sudo apt update
-        sudo apt install -y bash-completion # 示例安装一个常见的 shell 命令工具，你可以根据需要添加更多命令安装步骤
 
     - name: Run CFIPlus.sh
-      run:./CFIPlus.sh
-
-    - name: Run speed_AIO.sh
-      run:./speed_AIO.sh
+      run: |
+        if [ -n "$1" ]; then
+           ./CFIPlus.sh "$1"
+        else
+           ./CFIPlus.sh
+        fi
