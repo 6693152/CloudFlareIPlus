@@ -253,7 +253,7 @@ fi
 # 逐行处理IPlus.txt文件
 while read -r line; do
     ip=$(echo $line | cut -d ' ' -f 1)  # 提取IP地址部分
-	result=$(mmdblookup --file /usr/share/GeoIP/GeoLite2-Country.mmdb --ip $ip country iso_code)
+	result=$(mmdblookup --file GeoLite2-Country.mmdb --ip $ip country iso_code)
 	country_code=$(echo $result | awk -F '"' '{print $2}')
 	echo $ip >> "ip/${country_code}-${port}.txt"  # 写入对应的国家文件
 done < IPlus.txt
